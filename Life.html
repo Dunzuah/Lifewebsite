@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Liberia Foundation for Education · LIFE, Inc</title>
+  <!-- Google Fonts + Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800;14..32,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body {
+      font-family:'Inter',sans-serif;
+      background:#fefcf5;
+      color:#1e2a3e;
+      line-height:1.5;
+      scroll-behavior:smooth;
+    }
+    :root {
+      --primary:#0f5c3f;
+      --primary-dark:#0a3e2a;
+      --secondary:#d98c2b;
+      --secondary-dark:#b45f1b;
+      --accent-gold:#e8b340;
+      --gray-100:#f0ede8;
+      --gray-200:#e2dfd9;
+      --gray-700:#4a4a4a;
+      --gray-900:#212529;
+      --shadow-sm:0 2px 8px rgba(0,0,0,0.03),0 1px 2px rgba(0,0,0,0.05);
+      --shadow-md:0 8px 20px rgba(0,0,0,0.06),0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg:0 20px 30px -12px rgba(0,0,0,0.12);
+    }
+    .container { max-width:1300px; margin:0 auto; padding:0 28px; }
+    .news-ticker-wrapper {
+      background:#1a2c24; color:white; border-bottom:2px solid var(--secondary);
+      overflow:hidden; white-space:nowrap; position:relative; font-weight:500; z-index:1020;
+    }
+    .ticker-container {
+      display:flex; align-items:center; background:#0a2a1f; padding:0.5rem 0;
+    }
+    .ticker-label {
+      background:var(--secondary); color:#1e2a1c; font-weight:800;
+      padding:0.2rem 1.2rem; border-radius:0 20px 20px 0; font-size:0.8rem;
+      letter-spacing:1px; display:inline-flex; align-items:center; gap:6px;
+      z-index:2; margin-right:1rem; flex-shrink:0;
+    }
+    .ticker { flex:1; overflow:hidden; position:relative; }
+    .ticker-track {
+      display:inline-flex; white-space:nowrap; animation:scrollTicker 38s linear infinite;
+      gap:2.5rem;
+    }
+    .ticker-track a { color:#fef9e6; text-decoration:none; font-size:0.85rem; transition:color 0.2s; display:inline-flex; align-items:center; gap:6px; }
+    .ticker-track a:hover { color:var(--accent-gold); text-decoration:underline; }
+    @keyframes scrollTicker {
+      0% { transform:translateX(0); }
+      100% { transform:translateX(-48%); }
+    }
+    .navbar {
+      background:rgba(255,252,245,0.96); backdrop-filter:blur(12px);
+      position:sticky; top:0; z-index:1010; box-shadow:var(--shadow-sm);
+      border-bottom:1px solid var(--gray-200);
+    }
+    .nav-container {
+      display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; padding:0.8rem 0;
+    }
+    .logo-wrapper {
+      display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+    }
+    .logo-img {
+      height:70px; width:auto; filter:drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+      transition:transform 0.2s; border-radius:6px;
+    }
+    .logo-img:hover { transform:scale(1.02); }
+    .brand-text {
+      display:flex; flex-direction:column;
+    }
+    .brand-main {
+      font-size:1.5rem; font-weight:900;
+      background:linear-gradient(135deg, var(--primary) 20%, var(--secondary) 80%);
+      background-clip:text; -webkit-background-clip:text; color:transparent;
+      letter-spacing:-0.3px; line-height:1.2;
+    }
+    .brand-sub {
+      font-size:0.65rem; font-weight:600; color:var(--gray-700);
+      letter-spacing:1.2px; text-transform:uppercase;
+    }
+    .nav-links {
+      display:flex; gap:2rem; align-items:center; flex-wrap:wrap;
+    }
+    .nav-links a {
+      text-decoration:none; font-weight:600; color:var(--gray-900); transition:0.2s;
+    }
+    .nav-links a:hover, .nav-links a.active { color:var(--primary); border-bottom:2px solid var(--secondary); }
+    .btn-outline {
+      border:2px solid var(--primary); background:transparent;
+      padding:0.5rem 1.3rem; border-radius:40px; font-weight:700; color:var(--primary);
+      transition:0.2s; cursor:pointer;
+    }
+    .btn-outline:hover { background:var(--primary); color:white; }
+    .hero-modern {
+      background:linear-gradient(105deg, #ffffff 0%, #fef6e8 100%);
+      padding:4rem 0 3rem; border-bottom:1px solid #f0e2cf;
+    }
+    .hero-ticket {
+      display:flex; flex-wrap:wrap; gap:2rem; align-items:center;
+    }
+    .ticket-card {
+      flex:1.4; background:white; border-radius:48px 28px 48px 28px;
+      box-shadow:var(--shadow-lg); padding:2rem 2.2rem;
+      border:1px solid rgba(217,140,43,0.2); transition:transform 0.25s;
+    }
+    .ticket-card:hover { transform:translateY(-5px); }
+    .badge-new {
+      background:var(--secondary); color:white; padding:0.2rem 1rem;
+      border-radius:40px; font-size:0.7rem; font-weight:700; display:inline-block;
+      margin-bottom:1rem; letter-spacing:1px;
+    }
+    .ticket-card h1 {
+      font-size:2.8rem; font-weight:800; line-height:1.2; margin-bottom:1rem;
+      background:linear-gradient(135deg, #0f5c3f, #d98c2b);
+      background-clip:text; -webkit-background-clip:text; color:transparent;
+    }
+    .ticket-divider {
+      height:3px; background:repeating-linear-gradient(90deg, var(--secondary), var(--secondary) 10px, var(--primary) 10px, var(--primary) 20px);
+      width:80px; margin:1rem 0;
+    }
+    .hero-stats {
+      display:flex; gap:1.8rem; margin-top:1.5rem;
+    }
+    .stat { font-weight:700; }
+    .stat-number { font-size:1.6rem; font-weight:800; color:var(--primary); }
+    .btn-primary {
+      background:var(--primary); border:none; color:white; padding:0.9rem 2rem;
+      border-radius:60px; font-weight:700; cursor:pointer; transition:0.2s;
+      display:inline-flex; align-items:center; gap:8px;
+    }
+    .btn-primary:hover { background:var(--primary-dark); transform:translateY(-2px); }
+    .right-image {
+      flex:0.9; text-align:center;
+    }
+    .right-image img {
+      max-width:100%; border-radius:40px; box-shadow:var(--shadow-md);
+    }
+    .motto {
+      font-size:0.9rem; font-weight:500; color:var(--secondary-dark);
+      margin-top:1rem; letter-spacing:0.5px;
+    }
+    section { padding:4rem 0; }
+    .section-title {
+      font-size:2rem; font-weight:800; margin-bottom:1rem; display:inline-block;
+      background:linear-gradient(120deg, #0f5c3f, #b95f1a);
+      background-clip:text; -webkit-background-clip:text; color:transparent;
+    }
+    .section-title:after {
+      content:''; display:block; width:60px; height:3px;
+      background:var(--secondary); margin-top:6px; border-radius:4px;
+    }
+    .card-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr));
+      gap:2rem; margin-top:2rem;
+    }
+    .card {
+      background:white; padding:1.8rem; border-radius:28px; box-shadow:var(--shadow-md);
+      transition:all 0.25s; border:1px solid var(--gray-100);
+    }
+    .card:hover { transform:translateY(-6px); box-shadow:var(--shadow-lg); }
+    .news-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(310px,1fr));
+      gap:2rem; margin-top:1rem;
+    }
+    .news-card {
+      background:#fffdf8; border-radius:28px; padding:1.2rem;
+      border-left:6px solid var(--secondary); transition:0.2s;
+    }
+    .news-card h4 { font-weight:800; margin-bottom:0.5rem; }
+    .news-card a { color:var(--primary-dark); text-decoration:none; font-weight:500; }
+    .news-date { font-size:0.7rem; color:#9b7b4c; margin-top:0.5rem; }
+    .value-pill {
+      background:var(--gray-100); padding:0.3rem 1rem; border-radius:40px;
+      font-size:0.8rem; margin:0.2rem; display:inline-block;
+    }
+    .gallery-grid {
+      display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr));
+      gap:1.8rem; margin:2rem 0 0.5rem;
+    }
+    .gallery-card {
+      border-radius:28px; overflow:hidden; box-shadow:var(--shadow-md);
+      transition:transform 0.25s; background:white; border:1px solid var(--gray-100);
+    }
+    .gallery-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); }
+    .gallery-card img {
+      width:100%; height:220px; object-fit:cover; display:block;
+    }
+    .gallery-card .caption {
+      padding:1rem 1.2rem 1.2rem; font-weight:600; color:var(--gray-900); background:white;
+    }
+    .gallery-card .caption small { font-weight:400; color:var(--gray-700); display:block; margin-top:0.2rem; }
+    .donation-box {
+      background:#f4f0e7; border-radius:32px; padding:2rem 2.2rem;
+      border:1px solid #dac29c; margin:1rem 0 2rem;
+    }
+    .donation-box .bank-detail {
+      background:white; padding:0.6rem 1.8rem; border-radius:60px;
+      display:inline-block; box-shadow:var(--shadow-sm); font-weight:600;
+      margin:0.4rem 0.2rem;
+    }
+    .footer {
+      background:#121c17; color:#ddd6cb; padding:3rem 0 2rem;
+    }
+    .footer-grid {
+      display:flex; justify-content:space-between; flex-wrap:wrap; gap:2rem;
+    }
+    .footer a { color:#cbbf9a; text-decoration:none; }
+    .footer a:hover { color:var(--accent-gold); }
+    .install-banner {
+      position:fixed; bottom:20px; right:20px; background:#1e2a24; color:white;
+      padding:12px 22px; border-radius:60px; display:flex; gap:14px;
+      align-items:center; box-shadow:var(--shadow-lg); z-index:1200; cursor:pointer; font-weight:600;
+    }
+    @media (max-width:780px) {
+      .nav-container { flex-direction:column; gap:1rem; }
+      .ticket-card h1 { font-size:2rem; }
+      .logo-img { height:55px; }
+      .brand-main { font-size:1.2rem; }
+      .hero-stats { flex-wrap:wrap; gap:1rem; }
+      .right-image { flex:1; }
+      .gallery-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:500px) {
+      .gallery-grid { grid-template-columns:1fr; }
+      .nav-links { gap:1rem; justify-content:center; }
+      .ticker-label { font-size:0.65rem; padding:0.1rem 0.8rem; }
+      .ticker-track a { font-size:0.7rem; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="news-ticker-wrapper">
+  <div class="container ticker-container">
+    <div class="ticker-label"><i class="fas fa-newspaper"></i> LIBERIA NEWS</div>
+    <div class="ticker">
+      <div class="ticker-track">
+        <a href="#"><i class="fas fa-globe"></i> FrontPageAfrica: House okays 2025 budget</a>
+        <a href="#"><i class="fas fa-chart-line"></i> Daily Observer: Economic growth rebounds</a>
+        <a href="#"><i class="fas fa-gavel"></i> The New Dawn: Anti-Corruption bill advanced</a>
+        <a href="#"><i class="fas fa-school"></i> Liberia News: Free tuition policy expands</a>
+        <a href="#"><i class="fas fa-hand-holding-heart"></i> Heritage: Human rights watch report</a>
+        <a href="#"><i class="fas fa-leaf"></i> The Inquirer: SDGs progress review</a>
+        <a href="#"><i class="fas fa-chalkboard"></i> The Analyst: Education access summit</a>
+        <a href="#"><i class="fas fa-globe"></i> FrontPageAfrica: House okays 2025 budget</a>
+        <a href="#"><i class="fas fa-chart-line"></i> Daily Observer: Economic growth rebounds</a>
+        <a href="#"><i class="fas fa-gavel"></i> The New Dawn: Anti-Corruption bill advanced</a>
+        <a href="#"><i class="fas fa-school"></i> Liberia News: Free tuition policy expands</a>
+        <a href="#"><i class="fas fa-hand-holding-heart"></i> Heritage: Human rights watch report</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<nav class="navbar">
+  <div class="container nav-container">
+    <div class="logo-wrapper">
+      <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%230f5c3f' width='100' height='100' rx='20'/%3E%3Cpath d='M30 20 L30 80 L45 80 L45 50 L60 70 L75 50 L60 30 L45 50 L45 35 L30 20' fill='%23d98c2b' opacity='0.95'/%3E%3Ctext x='50' y='88' fill='%23fefcf5' font-size='16' text-anchor='middle' font-weight='700'%3ELIFE%3C/text%3E%3C/svg%3E"
+           alt="Liberia Foundation for Education LIFE Inc logo" class="logo-img">
+      <div class="brand-text">
+        <span class="brand-main">Liberia Foundation<br>for Education · LIFE, Inc</span>
+        <span class="brand-sub">Leadership · Investment · Freedom · Equality</span>
+      </div>
+    </div>
+    <div class="nav-links">
+      <a href="#" class="active">Home</a>
+      <a href="#mission">Mission</a>
+      <a href="#newspapers">Liberian Media</a>
+      <a href="#impact">Our Work</a>
+      <a href="#donate">Donate</a>
+      <a href="#contact">Contact</a>
+      <button id="installAppBtn" class="btn-outline"><i class="fas fa-download"></i> Install PWA</button>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="hero-modern">
+    <div class="container hero-ticket">
+      <div class="ticket-card">
+        <span class="badge-new"><i class="fas fa-ticket-alt"></i> NEW TICKET · 2026 EDITION</span>
+        <h1>Education, Justice &amp; Human Rights for All</h1>
+        <div class="ticket-divider"></div>
+        <p style="font-size:1.05rem; margin:1.2rem 0;">Empowering Liberian communities through transparent governance, quality education, and sustainable action. Join a movement that defends justice for every citizen.</p>
+        <div class="hero-stats">
+          <div class="stat"><span class="stat-number">15+</span><br />Counties</div>
+          <div class="stat"><span class="stat-number">50K+</span><br />Beneficiaries</div>
+          <div class="stat"><span class="stat-number">30+</span><br />Media Partners</div>
+        </div>
+        <div class="motto"><i class="fas fa-quote-left"></i> Motto: Development, Justice and Human Rights for All</div>
+        <button class="btn-primary" id="exploreBtn" style="margin-top:1.5rem;"><i class="fas fa-chart-simple"></i> Explore Liberia SDGs</button>
+      </div>
+      <div class="right-image">
+        <img src="https://placehold.co/500x400/0b5e42/ffffff?text=LIBERIA+FOUNDATION+FOR+EDUCATION+LIFE%2C+INC" alt="LIFE Liberia illustration" style="background:#f3efe6; object-fit:cover; width:100%;">
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="mission">
+    <section>
+      <h2 class="section-title">Our Guiding Light</h2>
+      <div class="card-grid">
+        <div class="card"><i class="fas fa-seedling" style="font-size:2.2rem; color:var(--primary);"></i><h3>Mission</h3><p>Promote sustainable development, human rights, anti-corruption, equal access to quality education, and justice for all in Liberia — especially vulnerable groups and girls.</p></div>
+        <div class="card"><i class="fas fa-eye" style="font-size:2.2rem; color:var(--primary);"></i><h3>Vision</h3><p>A fair, inclusive Liberia where transparent institutions drive prosperity, human dignity is inviolable, and every child accesses excellent education.</p></div>
+        <div class="card"><i class="fas fa-gem" style="font-size:2.2rem; color:var(--primary);"></i><h3>Core Values</h3><div><span class="value-pill">Integrity</span> <span class="value-pill">Accountability</span> <span class="value-pill">Equity</span> <span class="value-pill">Volunteerism</span> <span class="value-pill">Transparency</span> <span class="value-pill">Innovation</span></div></div>
+      </div>
+    </section>
+  </div>
+
+  <section style="background:#fcf9f2;">
+    <div class="container">
+      <h2 class="section-title"><i class="fas fa-images"></i> Our Children, Our Future</h2>
+      <p style="margin-bottom:0.5rem; color:var(--gray-700);">Real moments from Liberian communities — children eating, playing, and the urgent reality of poverty that we work to change.</p>
+      <div class="gallery-grid">
+        <div class="gallery-card">
+          <img src="https://images.unsplash.com/photo-1503919545889-aef636e10ad4?w=600&h=400&fit=crop&crop=center" alt="Children eating" loading="lazy">
+          <div class="caption">🍲 <strong>Nutrition &amp; School Meals</strong><small>Children sharing a meal at a community feeding program.</small></div>
+        </div>
+        <div class="gallery-card">
+          <img src="https://images.unsplash.com/photo-1526657782461-9fe13402a841?w=600&h=400&fit=crop&crop=center" alt="Kids playing" loading="lazy">
+          <div class="caption">⚽ <strong>Play &amp; Childhood Joy</strong><small>Youth playing football in a rural Liberian community.</small></div>
+        </div>
+        <div class="gallery-card">
+          <img src="https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?w=600&h=400&fit=crop&crop=center" alt="Child sleeping" loading="lazy">
+          <div class="caption">🛏️ <strong>A Child's Rest</strong><small>Many children lack safe sleeping spaces — we are building change.</small></div>
+        </div>
+      </div>
+      <p style="font-size:0.85rem; color:var(--gray-700); margin-top:0.5rem; font-style:italic;">
+        <i class="fas fa-camera"></i> Images reflect the reality of Liberian children — our mission is to turn every meal, every play, and every sleep into a dignified one.
+      </p>
+    </div>
+  </section>
+
+  <section id="newspapers">
+    <div class="container">
+      <h2 class="section-title"><i class="fas fa-newspaper"></i> Liberian News Hub</h2>
+      <p style="margin-bottom:1.5rem;">Stay updated with top Liberian press: FrontPageAfrica, Daily Observer, The New Dawn, The Heritage, and more.</p>
+      <div class="news-grid" id="liveNewsFeed">
+        <div class="news-card"><h4><i class="fas fa-star-of-life"></i> FrontPageAfrica</h4><p>“Presidential taskforce announces new anti-graft strategy.”</p><div class="news-date">🕒 2 hours ago</div><a href="#">Read more →</a></div>
+        <div class="news-card"><h4><i class="fas fa-chart-bar"></i> Daily Observer</h4><p>Liberia's mining sector reforms: what's next for local communities?</p><div class="news-date">🕒 5 hours ago</div><a href="#">Read more →</a></div>
+        <div class="news-card"><h4><i class="fas fa-gavel"></i> The New Dawn</h4><p>Senate ratifies crucial child protection bill.</p><div class="news-date">🕒 Yesterday</div><a href="#">Read more →</a></div>
+        <div class="news-card"><h4><i class="fas fa-landmark"></i> Heritage Newspaper</h4><p>Human rights defenders call for justice reform.</p><div class="news-date">🕒 1 day ago</div><a href="#">Read more →</a></div>
+        <div class="news-card"><h4><i class="fas fa-leaf"></i> The Inquirer</h4><p>Environmental protection: new SDGs initiative launched in rural Liberia.</p><div class="news-date">🕒 3 hours ago</div><a href="#">Read more →</a></div>
+        <div class="news-card"><h4><i class="fas fa-chalkboard-user"></i> Liberian Times</h4><p>Teachers demand welfare improvements nationwide.</p><div class="news-date">🕒 1 hour ago</div><a href="#">Read more →</a></div>
+      </div>
+      <div style="text-align:right; margin-top:1rem;"><button id="refreshNewsBtn" class="btn-outline" style="border-radius:40px;"><i class="fas fa-sync-alt"></i> Refresh Headlines</button></div>
+    </div>
+  </section>
+
+  <div class="container" id="impact">
+    <section>
+      <h2 class="section-title">Our Strategic Tickets · LIFE Impact Plan</h2>
+      <div class="card-grid">
+        <div class="card"><i class="fas fa-graduation-cap fa-2x"></i><h3>Education For All</h3><p>Scholarships for vulnerable girls, adopt-a-school program, teacher training and literacy campaigns across 10+ districts.</p><span class="value-pill">+1,200 girls sponsored</span></div>
+        <div class="card"><i class="fas fa-balance-scale fa-2x"></i><h3>Justice &amp; Human Rights</h3><p>Legal aid desks, anti-corruption monitoring, community paralegals &amp; asset recovery advocacy.</p><span class="value-pill">50+ pro bono cases</span></div>
+        <div class="card"><i class="fas fa-globe-africa fa-2x"></i><h3>Sustainable Development Goals</h3><p>SDGs scorecards, youth volunteer movement, climate resilience forums, and SDG awareness radio programs.</p></div>
+        <div class="card"><i class="fas fa-shield-alt fa-2x"></i><h3>Child Protection &amp; GBV Prevention</h3><p>Campus networks, research on child labor, safe spaces for survivors, and legal referral pathways.</p></div>
+      </div>
+
+      <div id="donate" style="margin-top:3rem;">
+        <h2 class="section-title"><i class="fas fa-hand-holding-heart"></i> Support Our Mission</h2>
+        <div class="donation-box">
+          <p style="font-size:1.1rem; font-weight:600; margin-bottom:1rem;">Partners &amp; Funders — bank transfer details:</p>
+          <div><span class="bank-detail"><i class="fas fa-user"></i> Account Name: Thomas S Kaydor</span></div>
+          <div><span class="bank-detail"><i class="fas fa-hashtag"></i> Account Number: 1030260790002</span></div>
+          <div><span class="bank-detail"><i class="fas fa-tag"></i> Account Type: Checking</span></div>
+          <div><span class="bank-detail"><i class="fas fa-code"></i> Swift Code: 226078609</span></div>
+          <div><span class="bank-detail"><i class="fas fa-university"></i> Bank: United Nations Federal Credit Union (UNFCU), New York HQ</span></div>
+          <p style="margin-top:1.2rem; font-size:0.9rem; color:var(--gray-700);"><i class="fas fa-lock" style="color:var(--primary);"></i> Your contribution directly supports education, justice, and human rights programs in Liberia.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Our Work section – Konewa Group removed -->
+  <section style="background:linear-gradient(115deg, #eef3ea, #fff7ed);">
+    <div class="container">
+      <div style="display:flex; flex-wrap:wrap; gap:2rem; align-items:center; justify-content:space-between;">
+        <div style="flex:1;"><h3 style="font-size:1.8rem;">Our Work in Action</h3><p style="max-width:600px;">Through transparent governance, community advocacy, and educational programs, LIFE, Inc. is building a brighter future for every Liberian. We remain independent, focused, and driven by the people we serve.</p></div>
+        <div style="flex:0.6; text-align:center; background:white; padding:1.2rem 2rem; border-radius:60px; box-shadow:var(--shadow-sm);"><i class="fas fa-hands-helping" style="font-size:2.8rem; color:var(--primary);"></i> <span style="font-weight:700; display:block;">Volunteer with us</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact – email placeholder removed -->
+  <div class="container" id="contact">
+    <section>
+      <h2 class="section-title">Connect with LIFE Liberia</h2>
+      <div class="card-grid">
+        <div class="card"><i class="fas fa-map-pin"></i><h3>Headquarters</h3>
+          <p><strong>Liberia Foundation for Education, LIFE Inc.</strong><br>
+          Konew House, Cooper Farm<br>
+          ELWA Rehab Community, Paynesville City<br>
+          Montserrado County, Republic of Liberia</p>
+          <p><i class="fas fa-phone-alt"></i> +231 777 027 180</p>
+        </div>
+        <div class="card"><i class="fas fa-mobile-alt"></i><h3>Mobile / WhatsApp</h3><p style="font-size:1.3rem; font-weight:700; color:var(--primary);">+1 347-780-8723</p><p><i class="fab fa-whatsapp" style="color:#25D366;"></i> Reach us directly via WhatsApp for quick responses.</p><button id="mediaContactBtn" class="btn-primary" style="margin-top:0.5rem;">Contact via WhatsApp</button></div>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="footer">
+  <div class="container footer-grid">
+    <div><h3 style="color:#e8c38b;">Liberia Foundation<br>for Education · LIFE, Inc</h3><p>Development, Justice &amp; Human Rights for All</p><p>© 2026 LIFE Liberia</p></div>
+    <div><h4>Essential links</h4><p><a href="#">Home</a></p><p><a href="#mission">Mission &amp; Vision</a></p><p><a href="#newspapers">Liberian News</a></p><p><a href="#donate">Donate</a></p></div>
+    <div><h4>Follow</h4><p><i class="fab fa-twitter"></i> @LIFE_Liberia</p><p><i class="fab fa-facebook"></i> LIFE Liberia Institute</p><p><i class="fab fa-whatsapp"></i> +1 347-780-8723</p></div>
+  </div>
+</footer>
+
+<div id="installBanner" class="install-banner" style="display:none;">
+  <i class="fas fa-download"></i> <span>Install LIFE APP (Offline access)</span> <i class="fas fa-times" id="closeBanner" style="margin-left:14px;"></i>
+</div>
+
+<script>
+  let deferredPrompt;
+  const installBtn = document.getElementById('installAppBtn');
+  const installBanner = document.getElementById('installBanner');
+
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    installBanner.style.display = 'flex';
+  });
+
+  function triggerInstall() {
+    if (deferredPrompt) {
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(() => { deferredPrompt = null; installBanner.style.display = 'none'; });
+    } else alert('PWA already installed or add to home screen manually.');
+  }
+  installBtn?.addEventListener('click', triggerInstall);
+  installBanner?.addEventListener('click', (e) => { if (e.target.id !== 'closeBanner') triggerInstall(); });
+  document.getElementById('closeBanner')?.addEventListener('click', (e) => { e.stopPropagation(); installBanner.style.display = 'none'; });
+
+  const refreshBtn = document.getElementById('refreshNewsBtn');
+  const headlinesList = [
+    { paper: "FrontPageAfrica", text: "New anti-graft bill passes first reading.", ago: "10 mins" },
+    { paper: "Daily Observer", text: "President hints at new education fund allocation.", ago: "20 mins" },
+    { paper: "The New Dawn", text: "Supreme court rules on electoral dispute.", ago: "1 hour" },
+    { paper: "Heritage", text: "Girls' STEM scholarship program launched.", ago: "2 hours" },
+    { paper: "The Inquirer", text: "SDGs: Liberia's progress report released.", ago: "4 hours" },
+    { paper: "Liberian Times", text: "Youth summit on human rights holds in Monrovia.", ago: "6 hours" }
+  ];
+
+  function refreshNews() {
+    const container = document.getElementById('liveNewsFeed');
+    if (!container) return;
+    container.innerHTML = '';
+    headlinesList.forEach(h => {
+      const card = document.createElement('div');
+      card.className = 'news-card';
+      card.innerHTML = `<h4><i class="fas fa-newspaper"></i> ${h.paper}</h4><p>${h.text}</p><div class="news-date">🕒 ${h.ago} ago</div><a href="#">Read full story →</a>`;
+      container.appendChild(card);
+    });
+  }
+  refreshBtn?.addEventListener('click', refreshNews);
+
+  document.getElementById('exploreBtn')?.addEventListener('click', () =>
+    alert('Liberia Foundation for Education LIFE, Inc: Join our SDGs campaign! Contact us via WhatsApp or phone.')
+  );
+  document.getElementById('mediaContactBtn')?.addEventListener('click', () =>
+    alert('📱 WhatsApp: +1 347-780-8723')
+  );
+
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+  (function createServiceWorkerFallback() {
+    const swCode = `const CACHE='life-pwa-v1'; const urls=['/','/index.html','https://fonts.googleapis.com/css2?family=Inter','https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css']; self.addEventListener('install',e=>e.waitUntil(caches.open(CACHE).then(c=>c.addAll(urls)))); self.addEventListener('fetch',e=>e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request))));`;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const url = URL.createObjectURL(blob);
+    if (!navigator.serviceWorker.controller) {
+      navigator.serviceWorker.register(url).catch(() => {});
+    }
+  })();
+
+  (function genManifest() {
+    const manifest = {
+      name: "Liberia Foundation for Education LIFE, Inc",
+      short_name: "LIFE Liberia",
+      start_url: ".",
+      display: "standalone",
+      background_color: "#fefcf5",
+      theme_color: "#0f5c3f",
+      icons: [{ src: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%230f5c3f' width='100' height='100' rx='20'/%3E%3Cpath d='M30 20 L30 80 L45 80 L45 50 L60 70 L75 50 L60 30 L45 50 L45 35 L30 20' fill='%23d98c2b' opacity='0.95'/%3E%3Ctext x='50' y='88' fill='%23fefcf5' font-size='16' text-anchor='middle' font-weight='700'%3ELIFE%3C/text%3E%3C/svg%3E", sizes:"any" }]
+    };
+    const link = document.createElement('link');
+    link.rel = 'manifest';
+    link.href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], { type: 'application/json' }));
+    document.head.appendChild(link);
+  })();
+</script>
+</body>
+</html>
